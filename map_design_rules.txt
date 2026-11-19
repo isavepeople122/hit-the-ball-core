@@ -1,0 +1,32 @@
+hit the ball - Map Design Rules:
+
+    Core Map Philosophy:
+
+        The map is a stage, not a world. Every environmental decision exists solely to contrast against the high-effort weapon animations and VFX. The aesthetic is intentional, deadpan minimalism: "low-effort map vs. high-effort swords."
+
+        Visual emptiness is a deliberate tool. By keeping the backdrop flat, untextured, and visually quiet, even mid-tier weapon particles and swings pop immediately. The environment must never compete with the player's weapon for attention, nor should it look like an accidental, unfinished baseplate.
+
+    Materials, Textures, and Geometry:
+
+        Textures and studs are strictly minimized or completely avoided. All structural parts should use SmoothPlastic to strip away default Roblox surface noise and keep rendering lightweight on low-end devices.
+
+        To prevent flat blocks from looking like an accidental WIP, depth and separation are achieved through subtle brightness shifts (5% to 10% color stepping between the main play surface, station pads, and bounce walls) rather than textures or complex meshes.
+
+        Clean edges and intentionality are reinforced through razor-thin dark outlines (using SelectionBox or thin border parts) and strict grid snapping (4-stud or 8-stud increments) so the layout reads as crisp geometric minimalism.
+
+    Hub Zones and Interactive Stations:
+
+        Stations are built using simple, low-part-count geometry paired with expressive, MS Paint-style SurfaceGui elements rather than rigged NPCs or complex models:
+
+            - Shop: A single untextured block featuring a simple, hand-drawn smiley face.
+            - Quest Zone: A single untextured block featuring a flat, deadpan face.
+            - RNG Station: A single untextured block featuring a sideways cap (one thin part for the brim) and an unimpressed expression.
+            - Secret 2x Balls Zone (2xZone): An invisible zone separated from the main hub area. It should remain visually hidden in the void, relying on tiny, deadpan tells (such as a microscopic floor dot or a faint proximity label) so players feel rewarded for discovering it.
+
+        The main bounce wall serves both a functional and visual purpose: it provides the exact, predictable return arc for the ball while displaying a massive, crisp SurfaceGui counter that ticks up with every hit.
+
+    Performance and Workflow Constraints:
+
+        Every map element must be built with strict performance budgets in mind so the game runs smoothly across all devices and remains manageable to edit inside Studio Lite on mobile.
+
+        Part counts are kept minimal, CastShadow is disabled on small trim or outline pieces, and dynamic lighting clutter is avoided. External asset work (Blender models, complex scripts) is reserved exclusively for weapons, animations, and VFX—never the map itself.

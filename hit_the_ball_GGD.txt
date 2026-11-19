@@ -1,0 +1,47 @@
+hit the ball - Game Design Document:
+
+    Game Overview and Core Loop:
+
+        hit the ball is a Roblox game built on an intentionally absurd premise: the player holds a stick, hits a ball, and does almost nothing else. The gameplay is mechanically shallow by design, but the presentation is anything but. Every swing is backed by high-fidelity animation work and escalating visual effects, turning a trivial action into a dopamine delivery mechanism.
+
+        The core loop is simple: a player spawns on a minimalist baseplate, walks up to a ball, and hits it. The ball bounces off a wall and returns in a completely predictable, identical arc every single time. There is no skill check, no randomness, no physics variance. The player hits the ball, watches it bounce back, and hits it again. Each successful hit contributes to a progress meter. Progress unlocks a new weapon tier. Each new weapon tier features dramatically better animations, more elaborate VFX, and a more absurd weapon design than the last. The player is not grinding for power or competitive advantage. The player is grinding to see the next animation. That is the entire hook.
+
+        The loop is: hit ball, watch satisfying animation, fill progress bar, unlock new weapon, hit ball with new weapon, watch even more satisfying animation. Repeat until the player has ascended from a wooden stick to god-tier blades wreathed in cosmic energy.
+
+    Progression System:
+
+        Progression is linear and based entirely on hit count. Every swing of any weapon counts as one hit. The ball does not need to be struck cleanly, it does not need to travel a certain distance, and it does not need to be returned. Any contact between weapon and ball counts. This removes all friction from the grind and keeps the player in the animation-watching flow state.
+
+        The progression track is a single sequence of weapon tiers. The first tier is the dumb stick, a crude wooden implement with a basic swing. As the player accumulates hits, they unlock new tiers in order. Each tier is a strict upgrade in animation quality, VFX density, sound design, and weapon absurdity. The player cannot skip tiers, choose branches, or equip older weapons unless they want to for cosmetic novelty. The linear track ensures every player experiences the full escalation from mundane to divine.
+
+        The pacing of unlocks is front-loaded to hook the player early. The first few tiers come quickly, within minutes, so the player immediately understands the fantasy: keep hitting, get cooler stuff. Later tiers stretch out, requiring more hits, but the animation quality of each unlock scales proportionally so the reward always feels worth the wait. The final tiers are deliberately absurd, featuring weapons that would be physically impossible and animations that border on cinematic. The ball itself may gain trailing particles, screen-shake, or slow-motion effects at the highest tiers, all while bouncing in the exact same arc as it did on the first hit.
+
+        There is no stat difference between weapons. A god-tier sword does not hit the ball harder or faster. It simply looks and sounds infinitely better. This is communicated clearly to the player so they understand the grind is for spectacle, not power. The predictability of the ball is a feature, not a bug. It is the constant against which the escalating absurdity of the weapons is measured.
+
+    PvP Mechanic:
+
+        The PvP mode reframes the game as a shooter, but the guns are swords and the bullets are balls. Players face off in small arenas and swing their weapons to launch balls at each other at high speed. A launched ball travels in a straight line or slight arc toward the opponent. The critical rule is this: a player cannot deflect or block an incoming ball. There is no parry, no counter, no return fire in the defensive sense. The only defense is avoidance. Players dodge, strafe, and position themselves to avoid incoming balls while charging and launching their own.
+
+        This single rule transforms the game into a shooter. The offense is the only interaction. Players are not volleying a ball back and forth, they are firing projectiles and dodging return fire. The ball's predictable bounce behavior is preserved in PvP for the player's own charged shots, but incoming balls follow a trajectory determined by the opponent's aim and weapon tier. Higher-tier weapons in PvP may launch balls with more dramatic visual trails, larger apparent size, or louder audio cues, but the actual hitbox and speed remain consistent across all tiers to keep PvP fair. The spectacle is cosmetic, the competition is pure.
+
+        Matches are short and fast. Players spawn with their currently equipped weapon, which is their progression-tier weapon from the single-player mode. This means a player who has grinded to a high tier brings their flashy god-sword into PvP and gets to show it off, but they have no mechanical advantage. The PvP mode is the social showcase for the progression grind. It is where players go to see each other's unlocks in action and to experience the shooter fantasy with maximum visual flair.
+
+        The PvP loop is: spawn, dodge incoming balls, charge a swing, launch a ball at the opponent, repeat until one player is eliminated. Rounds are quick, respawns are fast, and the focus is on the moment-to-moment dodge-and-fire rhythm. The inability to deflect is the entire tactical layer. Positioning and prediction matter, reflexes matter, but there is no defensive fallback. If a ball is coming at you, you move or you lose.
+
+    Map and Environment Design:
+
+        All maps are minimalist by design. The aesthetic is a void: simple flat baseplates, sparse geometric cover, and almost no decoration. The environment exists only to define the play space and provide surfaces for balls to bounce off. There are no detailed textures, no environmental storytelling, no clutter. The visual emptiness is deliberate. It creates maximum contrast with the weapon animations and VFX, which are the true spectacle of the game. When a player swings a cosmic god-blade wreathed in particle effects against a plain gray backdrop, the weapon pops. The void makes the flashy animations flashier.
+
+        Single-player maps are flat rectangular plates with a low wall at one end for the ball to bounce off. The ball return path is always identical. There may be a simple spawn pad and a progress display, but nothing else. The environment is a stage, not a world. Players are not meant to explore or admire the scenery. They are meant to hit the ball and watch the show.
+
+        PvP maps follow the same philosophy but add minimal cover geometry: a few simple walls, pillars, or raised platforms to allow for dodging and line-of-sight breaks. Cover is blocky and untextured. The layout is symmetric and readable at a glance so players can focus on the dodge-and-fire rhythm rather than learning complex maps. The void aesthetic carries over completely. The maps are functional stages for the projectile duel, nothing more.
+
+    Thumbnail and Marketing Strategy:
+
+        The thumbnail is a hyper-realistic, dramatically lit image of a ball mid-impact with an impossibly detailed sword, surrounded by cinematic VFX, lens flares, debris particles, and a dark, moody atmosphere. It looks like a AAA game promotional render. The actual gameplay at the start is a stick hitting a ball on a gray plate. The thumbnail is not clickbait in the traditional sense because it represents the eventual endgame of the progression: the highest-tier weapons genuinely do look that dramatic in motion. The thumbnail is a promise of where the grind leads.
+
+        The satirical tension between the thumbnail and the starting experience is the marketing hook. Players click expecting a polished action game and find a dumb stick and a ball. They stay because the first few unlocks come fast and the animations are genuinely high-quality. The joke lands because the game is in on it. The thumbnail is dramatic because the god-tier weapons are dramatic. The game respects the player's time by delivering the escalation quickly enough that the thumbnail feels like foreshadowing rather than a lie.
+
+        Marketing content should lean into the contrast. Short clips that show a player starting with the dumb stick, then cutting rapidly through tiers until the screen is pure VFX chaos. Side-by-side comparisons of the same predictable ball bounce with increasingly absurd weapons. PvP footage emphasizing the shooter fantasy: balls screaming across the void, players dodging, god-swords flashing. The messaging is simple: it is just hitting a ball, but it is the coolest hitting-a-ball you have ever seen.
+
+        The game's title, always stylized in lowercase, reinforces the self-aware simplicity. hit the ball. That is the game. The marketing never pretends otherwise. The spectacle is the sell, and the spectacle is real, just gated behind a grind that is designed to be pleasant, fast at first, and rewarding at every step.
