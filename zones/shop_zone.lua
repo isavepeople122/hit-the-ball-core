@@ -94,12 +94,10 @@ buySwordEvent.OnServerEvent:Connect(function(player)
 
 	local playerHits = player:GetAttribute("Hits") or 0
 	if playerHits >= nextTierData.HitsReq then
-		-- Deduct hits (or keep cumulative if you prefer—currently subtracts like a shop)
 		player:SetAttribute("Hits", playerHits - nextTierData.HitsReq)
 		player:SetAttribute("UnlockedTier", nextTierData.Tier)
 		player:SetAttribute("EquippedTier", nextTierData.Tier)
 
-		-- Refresh the shop UI with the next tier in line!
 		local afterNext = SWORD_TIERS[nextTierData.Tier + 1]
 		local randomLine = SHOP_LINES[math.random(1, #SHOP_LINES)]
 		openShopEvent:FireClient(player, afterNext, randomLine)
@@ -108,6 +106,10 @@ end)
 
 -- Open shop when clicking the smiley block
 clickDetector.MouseClick:Connect(function(player)
+	-- Increment shop visit tracker for the catboy quest system!
+	local currentVisits = player:GetAttribute("ShopVisits_QuestProgress") or 0
+	player:SetAttribute("ShopVisits_QuestProgress", currentVisits + 1)
+
 	local currentUnlocked = player:GetAttribute("UnlockedTier") or 1
 	local nextTierData = SWORD_TIERS[currentUnlocked + 1]
 	local randomLine = SHOP_LINES[math.random(1, #SHOP_LINES)]

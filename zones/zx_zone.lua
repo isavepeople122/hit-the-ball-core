@@ -5,8 +5,7 @@ local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
--- 1. Find the trigger part (expects a Part named "2xTrigger" or "XTrigger" with a ClickDetector)
--- In your Studio Lite explorer, you have a model/part called "2xZone"
+-- 1. Find the trigger part
 local zoneFolder = Workspace:WaitForChild("2xZone", 10)
 if not zoneFolder then
 	warn("[2xZone] Could not find '2xZone' in Workspace!")
@@ -26,7 +25,7 @@ if not clickDetector then
 	clickDetector.Parent = triggerPart
 end
 
--- 2. Create a lightweight RemoteEvent so all nearby/clicking players get the soft white screen flash
+-- 2. Create a lightweight RemoteEvent for the soft white screen flash
 local flashEvent = ReplicatedStorage:FindFirstChild("ZoneFlashEvent")
 if not flashEvent then
 	flashEvent = Instance.new("RemoteEvent")
@@ -34,7 +33,6 @@ if not flashEvent then
 	flashEvent.Parent = ReplicatedStorage
 end
 
--- Automatically inject a tiny flash listener into players when they join
 local function setupPlayerFlash(player)
 	local playerGui = player:WaitForChild("PlayerGui")
 	if playerGui:FindFirstChild("ZoneFlashGui") then return end
@@ -59,7 +57,6 @@ for _, p in ipairs(Players:GetPlayers()) do
 	task.spawn(setupPlayerFlash, p)
 end
 
--- Listen for flash calls on client via a quick LocalScript in StarterPlayerScripts
 local starterPlayerScripts = game:GetService("StarterPlayer"):WaitForChild("StarterPlayerScripts")
 if not starterPlayerScripts:FindFirstChild("ZoneFlashClient") then
 	local clientScript = Instance.new("LocalScript")
@@ -76,7 +73,7 @@ if not starterPlayerScripts:FindFirstChild("ZoneFlashClient") then
 			local gui = player:FindFirstChild("PlayerGui") and player.PlayerGui:FindFirstChild("ZoneFlashGui")
 			local frame = gui and gui:FindFirstChild("FlashFrame")
 			if frame then
-				frame.BackgroundTransparency = 0.25 -- Soft white flash
+				frame.BackgroundTransparency = 0.25
 				local tween = TweenService:Create(frame, TweenInfo.new(0.45, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 					BackgroundTransparency = 1
 				})
@@ -89,33 +86,27 @@ end
 
 -- 3. Multiplier Roll Table
 local function rollMultiplier()
-	local roll = math.random(1, 200) -- Out of 200 for finer rare chances
+	local roll = math.random(1, 200)
 
 	if roll == 1 then
-		-- 0.5% chance: Ultra-rare Pi Zone (12 digits of pi)
 		local pi12 = 3.14159265358
 		return pi12, "πx", Color3.fromRGB(255, 255, 255), true
 	elseif roll <= 9 then
-		-- 4% chance: Rare 3x Blue Zone
 		return 3.0, "3x", Color3.fromRGB(0, 170, 255), false
 	elseif roll <= 29 then
-		-- 10% chance: Troll long decimal (rarer than 2x, more common than 3x)
 		local decimal = 1 + (math.random(100000000, 999999999) / 1000000000) + (math.random(100000, 999999) / 1e15)
 		local formatted = string.format("%.15fx", decimal)
 		return decimal, formatted, Color3.fromRGB(220, 255, 220), false
 	elseif roll <= 109 then
-		-- 40% chance: Classic 2x Green Zone
 		return 2.0, "2x", Color3.fromRGB(50, 255, 100), false
 	elseif roll <= 159 then
-		-- 25% chance: Barely-anything 1.1x Zone
 		return 1.1, "1.1x", Color3.fromRGB(210, 210, 210), false
 	else
-		-- 20% chance: Evil 0.5x Red Zone
 		return 0.5, "0.5x", Color3.fromRGB(255, 60, 60), false
 	end
 end
 
--- 4. Build the Beam Box dynamically so you don't have to build it on mobile
+-- 4. Build the Beam Box dynamically
 local activeZoneModel = nil
 local isCooldown = false
 
@@ -127,7 +118,6 @@ local function spawnBeamBox(centerCFrame, multValue, labelText, zoneColor, isPi)
 	local model = Instance.new("Model")
 	model.Name = "ActiveMultiplierZone"
 
-	-- Invisible bounding box used to check if a player is standing inside
 	local boxSize = Vector3.new(24, 14, 24)
 	local zonePart = Instance.new("Part")
 	zonePart.Name = "ZoneBounds"
@@ -138,10 +128,8 @@ local function spawnBeamBox(centerCFrame, multValue, labelText, zoneColor, isPi)
 	zonePart.Transparency = 1
 	zonePart.Parent = model
 
-	-- Store the active multiplier right on the part as an Attribute so your Ball script can read it easily!
 	zonePart:SetAttribute("Multiplier", multValue)
 
-	-- Create 4 white-to-transparent vertical Beams on the 4 sides of the box
 	local halfX = boxSize.X / 2
 	local halfY = boxSize.Y / 2
 	local halfZ = boxSize.Z / 2
@@ -174,7 +162,6 @@ local function spawnBeamBox(centerCFrame, multValue, labelText, zoneColor, isPi)
 		beam.Attachment0 = bottomAtts[i]
 		beam.Attachment1 = bottomAtts[nextIdx]
 		beam.Color = ColorSequence.new(zoneColor)
-		-- Solid at bottom, fading to transparent at the top
 		beam.Transparency = NumberSequence.new({
 			NumberSequenceKeypoint.new(0, 0.35),
 			NumberSequenceKeypoint.new(1, 1)
@@ -186,7 +173,6 @@ local function spawnBeamBox(centerCFrame, multValue, labelText, zoneColor, isPi)
 		beam.Parent = zonePart
 	end
 
-	-- Add a flat glowing floor border highlight
 	local selectionBox = Instance.new("SelectionBox")
 	selectionBox.Adornee = zonePart
 	selectionBox.Color3 = zoneColor
@@ -195,7 +181,6 @@ local function spawnBeamBox(centerCFrame, multValue, labelText, zoneColor, isPi)
 	selectionBox.SurfaceColor3 = zoneColor
 	selectionBox.Parent = zonePart
 
-	-- Deadpan Arial BillboardGui
 	local billboard = Instance.new("BillboardGui")
 	billboard.Size = UDim2.new(0, 260, 0, 60)
 	billboard.StudsOffset = Vector3.new(0, 2, 0)
@@ -221,15 +206,15 @@ clickDetector.MouseClick:Connect(function(player)
 	if isCooldown then return end
 	isCooldown = true
 
+	-- Increment zone roll tracker for the catboy quest system!
+	local currentRolls = player:GetAttribute("ZoneRolls_QuestProgress") or 0
+	player:SetAttribute("ZoneRolls_QuestProgress", currentRolls + 1)
+
 	local multValue, labelText, zoneColor, isPi = rollMultiplier()
 
-	-- Trigger screen flash for the player who clicked it
 	flashEvent:FireClient(player)
-
-	-- Spawn the zone right at the trigger's position
 	spawnBeamBox(triggerPart.CFrame, multValue, labelText, zoneColor, isPi)
 
-	-- Hide the X trigger while the zone is active (since summons don't save)
 	triggerPart.Transparency = 1
 	clickDetector.MaxActivationDistance = 0
 
