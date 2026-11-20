@@ -48,4 +48,14 @@ hit the ball - Game Design Document:
 
     Procedural Collection and Seed System:
 
-            To maximize retention and give players a personalized collector's journey, swords beyond the starter tier are procedurally generated using individual player seeds. While milestone tiers (like the starter stick) remain identical for everyone, higher-tier swords append a unique number, random humorous prefix, and randomized item noun (e.g., #[num] [Prefix] [Noun]). Furthermore, each player's rolled weapons feature slight individual variations in color tint and mesh scaling, saving individually to their profile so no two players have the exact same collection book.
+        To maximize retention and give players a personalized collector's journey, swords beyond the starter tier are procedurally generated using individual player seeds. While milestone tiers (like the starter stick) remain identical for everyone, higher-tier swords append a unique number, random humorous prefix, and randomized item noun (e.g., #[num] [Prefix] [Noun]). Furthermore, each player's rolled weapons feature slight individual variations in color tint and mesh scaling, saving individually to their profile so no two players have the exact same collection book.
+
+    World Zones & Interactive Systems:
+
+        - 2xZone (zx_zone.lua): A physical world part with a ClickDetector. Triggers a soft white screen flash for the interacting player and spawns a dynamic beam box with a randomized multiplier roll (0.5x, 1.1x, 2x, 3x, troll decimals, and rare πx). Automatically increments `ZoneRolls_QuestProgress` attributes.
+        - Shop Zone (shop_zone.lua): A physical world block featuring a smiley face (:) icon and random developer-desperation quotes. Implements linear weapon purchasing tied to cumulative hit milestones, with an unhedged Figma-style UI mockup. Automatically increments `ShopVisits_QuestProgress` attributes.
+        - Catboy Quest Zone (quest_zone.lua): A physical world part featuring a sarcastic catboy NPC `(>^ω^<)` with a state-machine click flow:
+            1. Click 1: Auto-accepts an infinite procedural quest tied to actual gameplay attributes (`Hits`, `ZoneRolls`, `ShopVisits`).
+            2. Click 2: Provides passive-aggressive snark (`"...hurry nya."`, `"...lock in already."`) and real-time progress readouts if checked early.
+            3. Click 3: Claims massive hit payouts and automatically rolls the next infinite tier.
+        - Asset Pipeline: Faces and art markers are handled via physical image textures/decals mapped directly onto world parts in Studio Lite, maintaining a performance-friendly, low-effort void aesthetic (`SmoothPlastic` only).
