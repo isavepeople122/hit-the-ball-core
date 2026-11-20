@@ -29,7 +29,7 @@ local SUB_MODIFIERS = {
 
 local NOUNS = {
 	-- Traditional / Weapon-ish
-	"Stick", "Katana", "Spoon", "Greatsword", "Pool Nouncer", "Pool Noodle",
+	"Stick", "Katana", "Spoon", "Greatsword", "Pool Noodle",
 	"Metal Pipe", "Keyboard", "Spatula", "Baguette", "Plunger",
 	"Banjo", "Stop Sign", "Brick", "Lawnmower Blade", "Toothbrush",
 	"Flip-Flop", "Yardstick", "Wrench", "Traffic Cone", "Backscratcher",
@@ -59,6 +59,8 @@ function ProceduralSwords.GenerateSword(playerSeed, index)
 			TierName = "Tier 1",
 			FullName = "Dumb Stick",
 			HitsReq = 0,
+			FormattedReq = "0",
+			Multiplier = 1.0,
 			ColorTint = Color3.fromRGB(150, 100, 50),
 			ScaleOffset = Vector3.new(1, 1, 1)
 		}
@@ -71,7 +73,6 @@ function ProceduralSwords.GenerateSword(playerSeed, index)
 	local noun = NOUNS[rng:NextInteger(1, #NOUNS)]
 
 	local fullName
-	-- 30% chance to append a chaotic sub-modifier
 	if rng:NextInteger(1, 100) <= 30 then
 		local subMod = SUB_MODIFIERS[rng:NextInteger(1, #SUB_MODIFIERS)]
 		fullName = string.format("#%d %s %s (%s)", index, prefix, noun, subMod)
@@ -79,7 +80,6 @@ function ProceduralSwords.GenerateSword(playerSeed, index)
 		fullName = string.format("#%d %s %s", index, prefix, noun)
 	end
 
-	-- Unique color tint and chunkiness scale
 	local colorTint = Color3.fromRGB(rng:NextInteger(50, 255), rng:NextInteger(50, 255), rng:NextInteger(50, 255))
 	local scaleOffset = Vector3.new(
 		rng:NextNumber(0.85, 1.25),
@@ -87,14 +87,24 @@ function ProceduralSwords.GenerateSword(playerSeed, index)
 		rng:NextNumber(0.85, 1.25)
 	)
 
-	-- Exponential price scaling with leap spikes into the billions
+	-- Exponential price scaling with leap spikes
 	local baseCost = 15
-	local growthRate = 1.115
+	local growthRate = 1.08
 	local rawPrice = math.floor(baseCost * (growthRate ^ (index - 1)))
 
 	if index >= 50 then rawPrice = math.floor(rawPrice * 4) end
 	if index >= 100 then rawPrice = math.floor(rawPrice * 6) end
 	if index >= 175 then rawPrice = math.floor(rawPrice * 10) end
+	if index >= 1000 then rawPrice = math.floor(rawPrice * 25) end
+
+	-- Multiplier scaling: Capped at 6x for anything under sword #10,000
+	local swordMultiplier = 1.0
+	if index <= 10000 then
+		swordMultiplier = 1.0 + (5.0 * ((index - 1) / 9999))
+	else
+		local excess = index - 10000
+		swordMultiplier = 6.0 * (1.15 ^ excess)
+	end
 
 	local tierIndex = math.min(8, math.ceil(index / 25))
 
@@ -104,6 +114,7 @@ function ProceduralSwords.GenerateSword(playerSeed, index)
 		FullName = fullName,
 		HitsReq = rawPrice,
 		FormattedReq = ProceduralSwords.FormatNumber(rawPrice),
+		Multiplier = swordMultiplier,
 		ColorTint = colorTint,
 		ScaleOffset = scaleOffset
 	}
