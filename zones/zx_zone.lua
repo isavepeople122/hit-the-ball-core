@@ -1,5 +1,4 @@
 -- zones/zx_zone.lua
--- Complete, self-contained 2xZone generator & randomizer for hit the ball
 
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
