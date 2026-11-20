@@ -45,3 +45,7 @@ hit the ball - Game Design Document:
         Marketing content should lean into the contrast. Short clips that show a player starting with the dumb stick, then cutting rapidly through tiers until the screen is pure VFX chaos. Side-by-side comparisons of the same predictable ball bounce with increasingly absurd weapons. PvP footage emphasizing the shooter fantasy: balls screaming across the void, players dodging, god-swords flashing. The messaging is simple: it is just hitting a ball, but it is the coolest hitting-a-ball you have ever seen.
 
         The game's title, always stylized in lowercase, reinforces the self-aware simplicity. hit the ball. That is the game. The marketing never pretends otherwise. The spectacle is the sell, and the spectacle is real, just gated behind a grind that is designed to be pleasant, fast at first, and rewarding at every step.
+
+    Procedural Collection and Seed System:
+
+            To maximize retention and give players a personalized collector's journey, swords beyond the starter tier are procedurally generated using individual player seeds. While milestone tiers (like the starter stick) remain identical for everyone, higher-tier swords append a unique number, random humorous prefix, and randomized item noun (e.g., #[num] [Prefix] [Noun]). Furthermore, each player's rolled weapons feature slight individual variations in color tint and mesh scaling, saving individually to their profile so no two players have the exact same collection book.
